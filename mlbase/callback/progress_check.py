@@ -1,4 +1,4 @@
-from callback.callback import Callback
+from mlbase.callback.callback import Callback
 from typing import Dict, Set, Any
 
 

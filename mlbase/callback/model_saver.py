@@ -3,7 +3,7 @@ from typing import Dict, Any
 import random
 import torch
 import numpy as np
-from model.base_model import BaseModel
+from mlbase.model.base_model import BaseModel
 
 
 class ModelSaver(Callback):

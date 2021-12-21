@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 from typing import List
-from common.get_activation import get_activation
+from mlbase.common.get_activation import get_activation
 
 
 class MLP(nn.Module):

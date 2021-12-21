@@ -1,8 +1,8 @@
 import torch
 import torch.nn as nn
-from model.base_model import BaseModel
+from mlbase.model.base_model import BaseModel
 from typing import List
-from callback.callback import Callback
+from mlbase.callback.callback import Callback
 from torch.utils.data import Dataset, DataLoader
 import random
 import numpy as np

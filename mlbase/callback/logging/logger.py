@@ -1,6 +1,6 @@
 from typing import Dict, Any
 import datetime
-from callback import Callback
+from mlbase.callback.callback import Callback
 import torch
 
 
