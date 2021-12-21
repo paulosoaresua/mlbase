@@ -1,2 +1,3 @@
-# mlbase
-General structure to evaluate ML models
+# MLBase
+
+General structure to evaluate ML models.
