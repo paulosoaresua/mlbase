@@ -1,10 +1,10 @@
 from mlbase.callback.callback import Callback
-from typing import Dict, Set, Any
+from typing import Dict, List, Any
 
 
 class ProgressCheck(Callback):
 
-    def __init__(self, display_measures: Set = None, precision: int = 3, update_frequency_type: str = 'batch',
+    def __init__(self, display_measures: List[str] = None, precision: int = 3, update_frequency_type: str = 'batch',
                  update_frequency: int = 100):
         super().__init__(update_frequency_type, update_frequency)
         self._display_measures = display_measures
