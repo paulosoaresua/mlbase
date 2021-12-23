@@ -10,7 +10,7 @@ class EpochSummary(Callback):
         self._display_measures = display_measures
         self._precision = precision
 
-    def _on_train_batch_end(self, batch: int, logs: Dict[str, Any], train: bool):
+    def on_train_batch_end(self, batch: int, logs: Dict[str, Any], train: bool):
         if self._measures is None:
             self._measures = logs.copy()
         else:
@@ -23,7 +23,7 @@ class EpochSummary(Callback):
         self._print_summary()
 
     def _print_summary(self):
-        summary = f"[Epoch {self._epoch}]"
+        summary = f"[Epoch {self._epoch} Summary]"
         if self._display_measures is not None:
             for measure in self._display_measures:
                 if measure in self._measures:

@@ -17,7 +17,11 @@ class ProgressCheck(Callback):
         self._print_progress(logs)
 
     def _print_progress(self, logs: Dict[str, float]):
-        progress = f"[Epoch {self._epoch} Batch {self._batch}]"
+        if self.update_frequency_type == 'batch':
+            progress = f"[Epoch {self._epoch} Batch {self._batch}]"
+        else:
+            progress = f"[Epoch {self._epoch}]"
+
         if self._display_measures is not None:
             for measure in self._display_measures:
                 if measure in logs:
