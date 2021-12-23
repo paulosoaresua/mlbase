@@ -54,7 +54,6 @@ class ModelRunner:
         for callback in callbacks:
             callback.on_training_begin(len(training_data_loader), True)
 
-        logs = {}
         for epoch in range(self._initial_epoch, epochs):
             for callback in callbacks:
                 callback.on_train_epoch_begin(epoch, True)
