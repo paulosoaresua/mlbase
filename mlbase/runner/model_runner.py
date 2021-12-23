@@ -51,11 +51,11 @@ class ModelRunner:
             for callback in callbacks:
                 callback.on_train_epoch_begin(epoch, True)
 
-            for batch, (x, y) in enumerate(training_data_loader):
+            for batch, data in enumerate(training_data_loader):
                 for callback in callbacks:
                     callback.on_train_batch_begin(batch, True)
 
-                loss = self._model.calculate_loss(x, y)
+                loss = self._model.calculate_loss(data)
 
                 self._optimizer.zero_grad()
                 loss.backward()

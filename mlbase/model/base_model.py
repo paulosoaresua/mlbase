@@ -1,7 +1,8 @@
 import torch
 import torch.nn as nn
-from common.exceptions import NotImplementedError
+from mlbase.common.exceptions import NotImplementedError
 import os
+from typing import Any
 
 
 class BaseModel(nn.Module):
@@ -10,7 +11,7 @@ class BaseModel(nn.Module):
         self.stop_training = False
         self.log_keys = {}
 
-    def calculate_loss(self, x: torch.tensor, y: torch.tensor):
+    def calculate_loss(self, data: Any):
         raise NotImplementedError
 
     def save(self, out_dir: str):

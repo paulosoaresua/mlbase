@@ -1,6 +1,6 @@
 class RuntimeError(Exception):
     def __init__(self, *args, **kwargs):
-        pass
+        super().__init__(args, kwargs)
 
 
 class NotImplementedError(RuntimeError):

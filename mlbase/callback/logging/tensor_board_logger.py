@@ -1,5 +1,5 @@
 from typing import Any, Dict, Callable
-from mlbase.callback.logging import Logger
+from mlbase.callback.logging.logger import Logger
 from torch.utils.tensorboard import SummaryWriter
 import torch
 
