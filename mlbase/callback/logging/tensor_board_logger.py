@@ -18,7 +18,6 @@ class TensorBoardLogger(Logger):
         self._writer.add_hparams(metric_dict=performance_measures, hparam_dict=hyper_parameters)
 
     def log_image(self, measure: str, image: torch.tensor, step: int, train: bool):
-        measure = f"train/{measure}" if train else f"eval/{measure}"
         self._writer.add_image(measure, image, step)
 
     def _on_train_batch_end(self, batch: int, logs: Dict[str, Any], train: bool):

@@ -24,3 +24,8 @@ class BaseModel(nn.Module):
     def load(self, in_dir: str):
         # Load the pre-trained weights
         self.load_state_dict(torch.load('{}/parameters.pt'.format(in_dir)))
+
+    def _log_measure(self, measure: str, value: Any):
+        mode = 'train' if self.training else 'eval'
+        self.log_keys[f"{mode}/{measure}"] = value
+

@@ -4,7 +4,8 @@ from typing import Dict, Set, Any
 
 class ProgressCheck(Callback):
 
-    def __init__(self, display_measures: Set = None, precision: int = 3, update_frequency_type: str = 'batch', update_frequency: int = 100):
+    def __init__(self, display_measures: Set = None, precision: int = 3, update_frequency_type: str = 'batch',
+                 update_frequency: int = 100):
         super().__init__(update_frequency_type, update_frequency)
         self._display_measures = display_measures
         self._precision = precision

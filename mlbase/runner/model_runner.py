@@ -74,7 +74,7 @@ class ModelRunner:
 
                 # Other callbacks might overwrite the model internal log if they call the
                 # calculate_loss function again (e.g. EarlyStopping)
-                logs.update(self._model.log_keys.copy())
+                logs = self._model.log_keys.copy()
                 for callback in callbacks:
                     callback.on_train_batch_end(batch, logs, True)
 
