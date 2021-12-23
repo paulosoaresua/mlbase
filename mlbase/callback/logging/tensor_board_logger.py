@@ -29,7 +29,6 @@ class TensorBoardLogger(Logger):
             self._log_measure(key, value, self._step, train)
 
     def _log_measure(self, measure: str, value: Any, step: int, train: bool):
-        measure = f"train/{measure}" if train else f"eval/{measure}"
         if isinstance(value, float):
             self._writer.add_scalar(measure, value, step)
 
