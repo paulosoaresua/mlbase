@@ -3,6 +3,7 @@ import torch.nn as nn
 from mlbase.model.base_model import BaseModel
 from typing import List
 from mlbase.callback.callback import Callback
+from mlbase.callback.validation_check import ValidationCheck
 from torch.utils.data import Dataset, DataLoader
 import random
 import numpy as np
@@ -43,6 +44,13 @@ class ModelRunner:
 
         training_data_loader = DataLoader(training_set, batch_size=batch_size)
 
+        # All occurrences of a ValidationCheck callback must be the first ones so that other callbacks
+        # have access to the measures computed by the former.
+        for i in range(len(callbacks)):
+            if isinstance(callbacks[i], ValidationCheck):
+                callback = callbacks.pop(i)
+                callbacks.insert(0, callback)
+
         for callback in callbacks:
             callback.on_training_begin(len(training_data_loader), True)
 
@@ -52,6 +60,8 @@ class ModelRunner:
                 callback.on_train_epoch_begin(epoch, True)
 
             for batch, data in enumerate(training_data_loader):
+                self._model.log_keys.clear()
+
                 for callback in callbacks:
                     callback.on_train_batch_begin(batch, True)
 
