@@ -61,7 +61,6 @@ class ModelRunner:
 
             for batch, data in enumerate(training_data_loader):
                 self._model.log_keys.clear()
-
                 for callback in callbacks:
                     callback.on_train_batch_begin(batch, True)
 
@@ -72,14 +71,16 @@ class ModelRunner:
                 nn.utils.clip_grad_norm_(self._model.parameters(), 5.0)
                 self._optimizer.step()
 
-                # Other callbacks might overwrite the model internal log if they call the
-                # calculate_loss function again (e.g. EarlyStopping)
-                logs = self._model.log_keys.copy()
                 for callback in callbacks:
-                    callback.on_train_batch_end(batch, logs, True)
+                    callback.on_train_batch_end(batch, self._model.log_keys, True)
+
+                # Clear the log because if it's preserved and there's a callback per epoch to save the log,
+                # it will save the result from the last batch. Callbacks per epoch should be combined with a
+                # ValidationCheck or a EpochSummary callback so results can be computed over a full dataset.
+                self._model.log_keys.clear()
 
             for callback in callbacks:
-                callback.on_train_epoch_end(epoch, logs, True)
+                callback.on_train_epoch_end(epoch, self._model.log_keys, True)
 
             if self._model.stop_training:
                 break
