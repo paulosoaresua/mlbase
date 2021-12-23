@@ -25,12 +25,9 @@ class ValidationCheck(Callback):
         self._calculate_validation_loss()
 
     def _calculate_validation_loss(self):
-        # Keep current random state
-        random_state = random.getstate()
-        numpy_random_state = np.random.get_state()
-        torch_random_state = torch.get_rng_state()
-
+        self._stash_random_state()
         training_mode = self._model.training
+
         self._model.eval()
         with torch.no_grad():
             # This will compute the losses for the dataset and store the values in a log dictionary in the model
@@ -39,6 +36,4 @@ class ValidationCheck(Callback):
 
             # Set state to its original value
             self._model.train(training_mode)
-            random.setstate(random_state)
-            np.random.set_state(numpy_random_state)
-            torch.set_rng_state(torch_random_state)
+            self._pop_stashed_random_state()
