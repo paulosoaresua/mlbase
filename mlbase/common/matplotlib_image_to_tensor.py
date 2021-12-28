@@ -13,4 +13,4 @@ def matplotlib_image_to_tensor(figure: plt.figure) -> torch.tensor:
 
     image = PIL.Image.open(buffer)
 
-    ToTensor()(image)
+    return ToTensor()(image)
