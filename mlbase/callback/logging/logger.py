@@ -18,7 +18,7 @@ class Logger(Callback):
     def log_hyper_parameters(self, performance_measures: Dict[str, Any], hyper_parameters: Dict[str, float]):
         raise NotImplementedError
 
-    def log_image(self, measure: str, value: torch.tensor, step: int, train: bool):
+    def log_image(self, measure: str, image: torch.tensor, step: int, train: bool):
         raise NotImplementedError
 
 
