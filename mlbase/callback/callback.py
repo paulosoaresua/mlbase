@@ -3,6 +3,7 @@ import random
 import numpy as np
 import torch
 
+
 class Callback:
     def __init__(self, update_frequency_type: str = 'batch', update_frequency: int = 100):
         self.update_frequency_type = update_frequency_type

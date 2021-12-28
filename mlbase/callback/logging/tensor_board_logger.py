@@ -14,23 +14,18 @@ class TensorBoardLogger(Logger):
         self.board_dir = '{}/{}'.format(out_dir, self.id)
         self._writer = SummaryWriter(self.board_dir)
 
+        # This will aggregate the measures per batch in case the logger's update frequency type is per epoch
+        self._measures = None
+
+    def log_scalar(self, measure: str, value: Any, step: int, train: bool):
+        if isinstance(value, float):
+            self._writer.add_scalar(measure, value, step)
+
     def log_hyper_parameters(self, performance_measures: Dict[str, float], hyper_parameters: Dict[str, float]):
         self._writer.add_hparams(metric_dict=performance_measures, hparam_dict=hyper_parameters)
 
     def log_image(self, measure: str, image: torch.tensor, step: int, train: bool):
         self._writer.add_image(measure, image, step)
-
-    def _on_train_batch_end(self, batch: int, logs: Dict[str, Any], train: bool):
-        for key, value in logs.items():
-            self._log_measure(key, value, self._step, train)
-
-    def _on_train_epoch_end(self, epoch: int, logs: Dict[str, Any], train: bool):
-        for key, value in logs.items():
-            self._log_measure(key, value, self._step, train)
-
-    def _log_measure(self, measure: str, value: Any, step: int, train: bool):
-        if isinstance(value, float):
-            self._writer.add_scalar(measure, value, step)
 
     def __del__(self):
         self._writer.flush()
