@@ -38,11 +38,11 @@ class ModelRunner:
         torch.set_rng_state(data_package['torch_random_state'])
         self._initial_epoch = data_package['epoch'] + 1
 
-    def train(self, training_set: Dataset, epochs: int, batch_size: int, callbacks: List[Callback]):
+    def train(self, training_set: Dataset, epochs: int, batch_size: int, callbacks: List[Callback], shuffle: bool):
         self._model.train()
         self._model.stop_training = False
 
-        training_data_loader = DataLoader(training_set, batch_size=batch_size)
+        training_data_loader = DataLoader(training_set, batch_size=batch_size, shuffle=shuffle)
 
         # All occurrences of a ValidationCheck callback must be the first ones so that other callbacks
         # have access to the measures computed by the former.
