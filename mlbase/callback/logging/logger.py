@@ -21,6 +21,10 @@ class Logger(Callback):
         # This will aggregate the measures per batch in case the logger's update frequency type is per epoch
         self._aggregated_measures = None
 
+    def on_train_epoch_begin(self, epoch: int, train: bool):
+        self._aggregated_measures = None
+        super().on_train_epoch_begin(epoch, train)
+
     def on_train_batch_end(self, batch: int, logs: Dict[str, Any], train: bool):
         if self._aggregated_measures is None:
             self._aggregated_measures = logs.copy()
